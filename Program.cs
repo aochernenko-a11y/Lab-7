@@ -20,7 +20,7 @@ namespace Lab_7
                 Console.WriteLine("3 – Знайти трек");
                 Console.WriteLine("4 – Відсортувати треки");
                 Console.WriteLine("5 – Видалити трек");
-                Console.WriteLine("6 – Static-методи (демо)");
+                Console.WriteLine("6 – Static-методи");
                 Console.WriteLine("7 – Зберегти у файл");
                 Console.WriteLine("8 – Зчитати з файлу");
                 Console.WriteLine("9 – Очистити колекцію");
@@ -36,6 +36,43 @@ namespace Lab_7
                     case "3": m.Find(); break;
                     case "4": m.Sort(); break;
                     case "5": m.Remove(); break;
+                    case "6":
+                        Console.WriteLine("\n=== Операції над колекцією ===");
+                        Console.WriteLine("1 – Нормалізувати назви всіх треків");
+                        Console.WriteLine("2 – Знайти треки за жанром");
+                        Console.WriteLine("3 – Порахувати середню тривалість");
+                        Console.Write("Ваш вибір: ");
+
+                        string sub = Console.ReadLine();
+
+                        if (sub == "1")
+                        {
+                            MusicTrack.NormalizeAllTitles(m.Tracks);
+                            Console.WriteLine("Назви нормалізовано.");
+                        }
+                        else if (sub == "2")
+                        {
+                            Console.Write("Жанр: ");
+                            string g = Console.ReadLine();
+
+                            var found = MusicTrack.FindByGenre(m.Tracks, g);
+
+                            if (found.Count == 0)
+                                Console.WriteLine("Немає треків цього жанру.");
+                            else
+                            {
+                                Console.WriteLine("Знайдені треки:");
+                                foreach (var t in found)
+                                    Console.WriteLine($"{t.Title} | {t.Artist} | {t.Duration}s | {t.Genre}");
+                            }
+                        }
+                        else if (sub == "3")
+                        {
+                            double avg = MusicTrack.CalculateAverageDuration(m.Tracks);
+                            Console.WriteLine($"Середня тривалість: {avg:F2} сек.");
+                        }
+
+                        break;
 
                     case "7":
                         Console.WriteLine("1 - у CSV");
